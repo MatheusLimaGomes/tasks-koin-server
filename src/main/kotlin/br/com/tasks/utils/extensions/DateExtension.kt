@@ -5,7 +5,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-//TODO: Review Fomatter
+//TODO: Review Formatter
 fun LocalDateTime.toDateString(): String = dateFormat.format(this)
 private val zoneId: ZoneId = ZoneId.of("America/Sao_Paulo")
 
