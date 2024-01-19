@@ -27,4 +27,5 @@ fun Application.module() {
     configureMonitoring()
     configureHTTP()
     configureRouting()
+    configureStatusPage()
 }

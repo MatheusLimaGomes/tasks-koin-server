@@ -4,6 +4,8 @@ import br.com.tasks.core.domain.data.repository.TaskRepository
 import br.com.tasks.core.domain.data.service.TaskService
 import br.com.tasks.core.domain.usecase.ValidateCreateTaskRequest
 import br.com.tasks.core.domain.usecase.ValidateCreateTaskRequestImpl
+import br.com.tasks.core.domain.usecase.ValidateUpdateTaskRequestImpl
+import br.com.tasks.core.domain.usecase.ValidateUpdateTaskRequest
 import br.com.tasks.data.repository.TaskRepositoryImpl
 import br.com.tasks.data.service.TaskServiceImpl
 import br.com.tasks.utils.extensions.Constants.MONGODB_URI_LOCAL
@@ -25,11 +27,14 @@ val repositoryModule = module {
 }
 val serviceModule = module {
     single<TaskService> {
-        TaskServiceImpl(get(), get())
+        TaskServiceImpl(get(), get(),get())
     }
 }
 val useCaseModule = module {
     single<ValidateCreateTaskRequest> {
         ValidateCreateTaskRequestImpl()
+    }
+    single<ValidateUpdateTaskRequest> {
+        ValidateUpdateTaskRequestImpl()
     }
 }

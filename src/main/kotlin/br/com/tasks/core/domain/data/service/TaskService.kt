@@ -10,4 +10,6 @@ interface TaskService {
     suspend fun insert(createTaskRequest: CreateTaskRequest): SimpleResponse
     suspend fun getTaskByID(taskId: String): Task?
     suspend fun update(taskID: String, updateTaskRequest: UpdateTaskRequest): SimpleResponse
+    suspend fun delete(taskID: String): SimpleResponse
+    suspend fun completeTask(taskId: String): SimpleResponse
 }
