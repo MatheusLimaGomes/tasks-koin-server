@@ -58,7 +58,7 @@ class TaskServiceImpl constructor(
     override suspend fun completeTask(taskId: String): SimpleResponse {
         val task = getTaskByID(taskId)
         task?.let {
-            val modifiedCount = taskRepository.completeTask(it.id)
+            val modifiedCount = taskRepository.completeTask(it._id)
             if (modifiedCount > 0) {
                 return SimpleResponse(success = true, message = "Tarefa concluída com sucesso!", statusCode = 200)
             } else {

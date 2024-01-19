@@ -10,13 +10,12 @@ import br.com.tasks.data.repository.TaskRepositoryImpl
 import br.com.tasks.data.service.TaskServiceImpl
 import br.com.tasks.utils.extensions.Constants.MONGODB_URI_LOCAL
 import br.com.tasks.utils.extensions.Constants.LOCAL_DB__NAME
+import com.mongodb.kotlin.client.coroutine.MongoClient
 import org.koin.dsl.module
-import org.litote.kmongo.coroutine.coroutine
-import org.litote.kmongo.reactivestreams.KMongo
 
 val databaseModule = module {
     single {
-        val client = KMongo.createClient(connectionString = MONGODB_URI_LOCAL).coroutine
+        val client = MongoClient.create(connectionString = MONGODB_URI_LOCAL)
         client.getDatabase(LOCAL_DB__NAME)
     }
 }
