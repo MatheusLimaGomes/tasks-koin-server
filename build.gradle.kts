@@ -3,6 +3,8 @@ val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 
+val bcrypt_version: String by project
+
 val koin_version: String by project
 
 plugins {
@@ -45,6 +47,9 @@ dependencies {
 
     // Kotlin-serialization
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
+
+    //BCrypt
+    implementation("at.favre.lib:bcrypt:$bcrypt_version")
 
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
