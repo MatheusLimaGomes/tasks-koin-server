@@ -5,7 +5,9 @@ import br.com.tasks.data.request.CreateTaskRequest
 import br.com.tasks.data.request.UpdateTaskRequest
 import br.com.tasks.data.response.SimpleResponse
 import br.com.tasks.utils.extensions.Constants.PARAM_ID
+import br.com.tasks.utils.extensions.Constants.PATH_TASK_ID
 import br.com.tasks.utils.extensions.Constants.TASKS_ROUTE
+import br.com.tasks.utils.extensions.ErrorCodes
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -38,11 +40,11 @@ private fun Route.getTasks(taskService: TaskService) {
 }
 
 private fun Route.getTaskById(taskService: TaskService) {
-    get ("/{id}"){
+    get (PATH_TASK_ID){
             val taskId = call.parameters[PARAM_ID] ?: ""
             val task = taskService.getTaskByID(taskId)
             task?.let { safeTask -> call.respond(HttpStatusCode.OK, safeTask)
-            } ?: call.respond(HttpStatusCode.NotFound, SimpleResponse(success = false, message = "Task não encontrada", statusCode = 404))
+            } ?: call.respond(HttpStatusCode.NotFound, SimpleResponse(success = false, message = ErrorCodes.TASK_NOT_FOUND.message, statusCode = 404))
     }
 }
 
@@ -64,7 +66,7 @@ private fun Route.insertTask(taskService: TaskService) {
 }
 
 private fun Route.updateTask(taskService: TaskService) {
-    put("/{id}") {
+    put(PATH_TASK_ID) {
         val taskID = call.parameters[PARAM_ID] ?: ""
         val request = call.receiveNullable<UpdateTaskRequest>()
         request?.let { updateTaskRequest ->
@@ -82,7 +84,7 @@ private fun Route.updateTask(taskService: TaskService) {
     }
 }
 private fun Route.completeTask(taskService: TaskService) {
-patch("{/id}" ) {
+patch(PATH_TASK_ID ) {
     val taskId = call.parameters[PARAM_ID] ?: ""
     val simpleResponse = taskService.completeTask(taskId)
     when {
@@ -99,7 +101,7 @@ patch("{/id}" ) {
 }
 }
 private fun Route.deleteTask(taskService: TaskService) {
-    delete("{/id}") {
+    delete(PATH_TASK_ID) {
         val taskId = call.parameters[PARAM_ID] ?: ""
         val simpleResponse = taskService.delete(taskId)
         if (simpleResponse.success) {
