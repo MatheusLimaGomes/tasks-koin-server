@@ -12,3 +12,4 @@ private val zoneId: ZoneId = ZoneId.of("America/Sao_Paulo")
 val dateFormat: DateTimeFormatter = DateTimeFormatter
     .ofPattern("EEE, dd MMM yyyy HH:mm:ss z")
     .withLocale(Locale.of("pt", "br"))
+    .withZone(zoneId)
